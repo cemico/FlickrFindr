@@ -15,16 +15,20 @@ struct FlickrPhoto: Decodable {
     // note: use of constants since model class does not modify and JSON decoder initializes 
     //       values on init() using struct default initializer of each struct member
     let id: String
-    let secret: String
     let title: String
 
+    // used in image url composition
+    let secret: String
+    let farm: String
+    let server: String
+    
     // the photo array from the search return differs in syntax
     // the photo info direct call.  however, they only differ
     // by a root "photo" key, so expand the default logic to
     // manually look for both
     enum CodingKeys: String, CodingKey {
 
-        case photo, id, secret, title
+        case photo, id, secret, title, farm, server
     }
 
     init(from decoder: Decoder) throws {
@@ -41,6 +45,9 @@ struct FlickrPhoto: Decodable {
                 self.id = id
                 secret = try container.decode(String.self, forKey: .secret)
                 title = try container.decode(String.self, forKey: .title)
+                server = try container.decode(String.self, forKey: .server)
+                let farmInt = try container.decode(Int.self, forKey: .farm)
+                farm = "\(farmInt)"
             }
             else {
 
@@ -48,6 +55,9 @@ struct FlickrPhoto: Decodable {
                 let photoContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .photo)
                 id = try photoContainer.decode(String.self, forKey: .id)
                 secret = try photoContainer.decode(String.self, forKey: .secret)
+                server = try photoContainer.decode(String.self, forKey: .server)
+                let farmInt = try photoContainer.decode(Int.self, forKey: .farm)
+                farm = "\(farmInt)"
 
                 // note: title is a dictionary in this path versus string above, translate
                 let dict = try photoContainer.decode([String: String].self, forKey: .title)
@@ -57,11 +67,11 @@ struct FlickrPhoto: Decodable {
     }
 }
 
-// custom "description" output
+// custom output
 extension FlickrPhoto: CustomStringConvertible {
 
     var description: String {
 
-        return "id: \(id), title: \(title), secret: \(secret)"
+        return "id: \(id), title: \(title), secret: \(secret), farm: \(farm), server: \(server)"
     }
 }

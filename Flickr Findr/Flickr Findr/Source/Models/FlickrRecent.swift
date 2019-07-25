@@ -9,7 +9,7 @@
 import Foundation
 
 // model class for: https://www.flickr.com/services/api/flickr.photos.getRecent.html
-struct FlickrRecent: FlickerPhotosDecodale {
+struct FlickrRecent: FlickrPhotosDecodale {
 
     // protocol conformance
 
@@ -20,7 +20,7 @@ struct FlickrRecent: FlickerPhotosDecodale {
     private(set) var stat: String
 }
 
-// custom "description" output
+// custom output
 extension FlickrRecent: CustomStringConvertible {
 
     var description: String {

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PhotoInfoViewController" customModule="Flickr_Findr" customModuleProvider="target">
+            <connections>
+                <outlet property="IDLabel" destination="IkE-Yw-Br9" id="1WG-Fh-RCE"/>
+                <outlet property="imageView" destination="rLn-3l-cSk" id="6fe-Lf-I5e"/>
+                <outlet property="titleLabel" destination="3fe-k1-FWb" id="gdv-82-lrY"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rLn-3l-cSk">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3fe-k1-FWb">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                    <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="AmC-AP-V1z"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IkE-Yw-Br9">
+                    <rect key="frame" x="5" y="579" width="365" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="Amg-os-cRb"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="3fe-k1-FWb" firstAttribute="top" secondItem="rLn-3l-cSk" secondAttribute="top" id="AlB-hi-btz"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rLn-3l-cSk" secondAttribute="trailing" id="GVQ-se-SNt"/>
+                <constraint firstItem="rLn-3l-cSk" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="SJ8-V2-4xT"/>
+                <constraint firstItem="rLn-3l-cSk" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="VKw-pS-8cX"/>
+                <constraint firstItem="3fe-k1-FWb" firstAttribute="leading" secondItem="rLn-3l-cSk" secondAttribute="leading" id="WJs-Lx-Or3"/>
+                <constraint firstItem="IkE-Yw-Br9" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="-5" id="WSL-Uq-0c5"/>
+                <constraint firstItem="3fe-k1-FWb" firstAttribute="trailing" secondItem="rLn-3l-cSk" secondAttribute="trailing" id="cOv-P4-aYU"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="rLn-3l-cSk" secondAttribute="bottom" id="jie-J2-c0z"/>
+                <constraint firstItem="IkE-Yw-Br9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="5" id="uRW-ID-6XI"/>
+                <constraint firstItem="IkE-Yw-Br9" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="x0J-Gd-vXN"/>
+            </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="440.80000000000001" y="49.925037481259373"/>
+        </view>
+    </objects>
+</document>

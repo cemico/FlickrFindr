@@ -1,5 +1,5 @@
 //
-//  FlickrAPI.swift
+//  APILiveService.swift
 //  Flickr Findr
 //
 //  Created by Dave Rogers on 7/21/19.
@@ -8,28 +8,8 @@
 
 import Foundation
 
-protocol APIRequirements {
-
-    // tags: comma delineated, default empty
-    // exclusive: tags OR or AND, default OR
-    // page to view, default 1
-    func search(with tags: String,
-                exclusive: Bool,
-                page: Int,
-                completionHandler: @escaping (FlickrResults<FlickrSearch>) -> Void)
-
-    // info on specific photo
-    func photoInfo(id: String,
-                   secret: String,
-                   completionHandler: @escaping (FlickrResults<FlickrPhoto>) -> Void)
-
-    // toying w/ idea of showing this at first launch
-    // note: fully implemented
-    func recent(completionHandler: @escaping (FlickrResults<FlickrRecent>) -> Void)
-}
-
 // add live implementation to be used as default
-class APIService: APIRequirements {
+class APILiveService: APIRequirements {
 
     // search via tags
     func search(with tags: String = "",
@@ -37,17 +17,26 @@ class APIService: APIRequirements {
                 page: Int = 1,
                 completionHandler: @escaping (FlickrResults<FlickrSearch>) -> Void) {
 
-        let isExclusive = exclusive ? APIEndpoints.ExclusiveValues.and.value : APIEndpoints.ExclusiveValues.or.value
+        let isExclusive = exclusive ?
+            APIEndpoints.ExclusiveValues.and.value :
+            APIEndpoints.ExclusiveValues.or.value
         let page = "\(page)"
         APIEndpoints.search(tags, isExclusive, page).getData(value: FlickrSearch.self) { results in
 
-            switch results {
+//            switch results {
+//
+//            case .success(let model):
+//                print("success model \(type(of: model.self)):", model)
+//
+//            case .failure(let error):
+//                print(error)
+//            }
+            
+            // user will likely need to take some UI action
+            // on these results - be nice and return on main queue
+            DispatchQueue.main.async {
 
-            case .success(let model):
-                print("success model \(type(of: model.self)):", model)
-
-            case .failure(let error):
-                print(error)
+                completionHandler(results)
             }
         }
     }
@@ -57,11 +46,45 @@ class APIService: APIRequirements {
                    secret: String,
                    completionHandler: @escaping (FlickrResults<FlickrPhoto>) -> Void) {
 
+        APIEndpoints.photoInfo(id, secret).getData(value: FlickrPhoto.self) { results in
+            
+//            switch results {
+//
+//            case .success(let model):
+//                print("success model \(type(of: model.self)):", model)
+//
+//            case .failure(let error):
+//                print(error)
+//            }
+            
+            DispatchQueue.main.async {
+                
+                completionHandler(results)
+            }
+        }
     }
 
     // recently added
-    func recent(completionHandler: @escaping (FlickrResults<FlickrRecent>) -> Void) {
+    func recent(page: Int = 1,
+                completionHandler: @escaping (FlickrResults<FlickrRecent>) -> Void) {
 
+        let page = "\(page)"
+        APIEndpoints.recent(page).getData(value: FlickrRecent.self) { results in
+            
+//            switch results {
+//
+//            case .success(let model):
+//                print("success model \(type(of: model.self)):", model)
+//
+//            case .failure(let error):
+//                print(error)
+//            }
+            
+            DispatchQueue.main.async {
+                
+                completionHandler(results)
+            }
+        }
     }
 }
 
@@ -102,14 +125,18 @@ enum APIEndpoints {
             case format = "json"
             case perPage = "25"
             case nojsoncallback = "1"
-            case searchMethod = "flickr.photos.search"
-            case recentMethod = "flickr.photos.getRecent"
-            case photoInfoMethod = "flickr.photos.getInfo"
+            
+            enum Method: String {
+                
+                case search = "flickr.photos.search"
+                case recent = "flickr.photos.getRecent"
+                case photoInfo = "flickr.photos.getInfo"
+            }
         }
 
         // all non-user specific
         case search(String, String, String)
-        case recent
+        case recent(String)
         case photoInfo(String, String)
 
         var queryParams: [URLQueryItem] {
@@ -127,7 +154,7 @@ enum APIEndpoints {
             switch self {
 
             case .search(let tags, let exclusive, let page):
-                params.append(URLQueryItem(name: Keys.method.rawValue, value: Values.searchMethod.rawValue))
+                params.append(URLQueryItem(name: Keys.method.rawValue, value: Values.Method.search.rawValue))
                 if !tags.isEmpty {
 
                     // per docs: comma-delimited list of tags
@@ -136,11 +163,12 @@ enum APIEndpoints {
                 params.append(URLQueryItem(name: Keys.exclusive.rawValue, value: exclusive))
                 params.append(URLQueryItem(name: Keys.page.rawValue, value: page))
 
-            case .recent:
-                params.append(URLQueryItem(name: Keys.method.rawValue, value: Values.recentMethod.rawValue))
+            case .recent(let page):
+                params.append(URLQueryItem(name: Keys.method.rawValue, value: Values.Method.recent.rawValue))
+                params.append(URLQueryItem(name: Keys.page.rawValue, value: page))
 
             case .photoInfo(let photoId, let secret):
-                params.append(URLQueryItem(name: Keys.method.rawValue, value: Values.photoInfoMethod.rawValue))
+                params.append(URLQueryItem(name: Keys.method.rawValue, value: Values.Method.photoInfo.rawValue))
                 params.append(URLQueryItem(name: Keys.photoId.rawValue, value: photoId))
                 if !secret.isEmpty {
 
@@ -155,7 +183,7 @@ enum APIEndpoints {
 
     // associated values enum
     case search(String, String, String)
-    case recent
+    case recent(String)
     case photoInfo(String, String)
 
     var url: URL? {
@@ -169,8 +197,8 @@ enum APIEndpoints {
         case .search(let tags, let exclusive, let page):
             components.queryItems = QueryParams.search(tags, exclusive, page).queryParams
 
-        case .recent:
-            components.queryItems = QueryParams.recent.queryParams
+        case .recent(let page):
+            components.queryItems = QueryParams.recent(page).queryParams
 
         case .photoInfo(let photoId, let secret):
             components.queryItems = QueryParams.photoInfo(photoId, secret).queryParams

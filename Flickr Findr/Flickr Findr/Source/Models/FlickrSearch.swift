@@ -9,7 +9,7 @@
 import Foundation
 
 // common format between search, recent, and popular
-protocol FlickerPhotosDecodale: Decodable {
+protocol FlickrPhotosDecodale: Decodable {
 
     // results related
     var photos: FlickrPhotos { get }
@@ -19,7 +19,7 @@ protocol FlickerPhotosDecodale: Decodable {
 }
 
 // model class for: https://www.flickr.com/services/api/flickr.photos.search.html
-struct FlickrSearch: FlickerPhotosDecodale {
+struct FlickrSearch: FlickrPhotosDecodale {
 
     // protocol conformance
     
@@ -30,7 +30,7 @@ struct FlickrSearch: FlickerPhotosDecodale {
     private(set) var stat: String
 }
 
-// custom "description" output
+// custom output
 extension FlickrSearch: CustomStringConvertible {
 
     var description: String {
