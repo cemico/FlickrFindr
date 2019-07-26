@@ -23,6 +23,9 @@
 		AA0B9D8722E5907300D05FD8 /* BundleExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0B9D8622E5907300D05FD8 /* BundleExt.swift */; };
 		AAA7ECED22EB50570034C4C8 /* LocalStorageProtocol.com.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA7ECEC22EB50570034C4C8 /* LocalStorageProtocol.com.swift */; };
 		AAA7ECF122EB50F20034C4C8 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA7ECF022EB50F20034C4C8 /* LocalStorage.swift */; };
+		AAA7ECF322EB71990034C4C8 /* APIMockDataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA7ECF222EB71990034C4C8 /* APIMockDataSourceProtocol.swift */; };
+		AAA7ECF522EB731E0034C4C8 /* APIMockFileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA7ECF422EB731E0034C4C8 /* APIMockFileDataSource.swift */; };
+		AAA7ECF722EB78740034C4C8 /* APIMockInputDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA7ECF622EB78740034C4C8 /* APIMockInputDataSource.swift */; };
 		FFBE6B0322E67A93000EF8B8 /* APIServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBE6B0222E67A93000EF8B8 /* APIServiceFactory.swift */; };
 		FFBE6B0522E67E9B000EF8B8 /* APIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBE6B0422E67E9B000EF8B8 /* APIProtocol.swift */; };
 		FFBE6B0722E67FBD000EF8B8 /* APIMockServivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBE6B0622E67FBD000EF8B8 /* APIMockServivce.swift */; };
@@ -79,6 +82,9 @@
 		AA0B9D8622E5907300D05FD8 /* BundleExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExt.swift; sourceTree = "<group>"; };
 		AAA7ECEC22EB50570034C4C8 /* LocalStorageProtocol.com.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageProtocol.com.swift; sourceTree = "<group>"; };
 		AAA7ECF022EB50F20034C4C8 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
+		AAA7ECF222EB71990034C4C8 /* APIMockDataSourceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIMockDataSourceProtocol.swift; sourceTree = "<group>"; };
+		AAA7ECF422EB731E0034C4C8 /* APIMockFileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIMockFileDataSource.swift; sourceTree = "<group>"; };
+		AAA7ECF622EB78740034C4C8 /* APIMockInputDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIMockInputDataSource.swift; sourceTree = "<group>"; };
 		FFBE6B0222E67A93000EF8B8 /* APIServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceFactory.swift; sourceTree = "<group>"; };
 		FFBE6B0422E67E9B000EF8B8 /* APIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIProtocol.swift; sourceTree = "<group>"; };
 		FFBE6B0622E67FBD000EF8B8 /* APIMockServivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIMockServivce.swift; sourceTree = "<group>"; };
@@ -206,6 +212,9 @@
 				AA0B9D7322E452E000D05FD8 /* APILiveService.swift */,
 				FFBE6B0622E67FBD000EF8B8 /* APIMockServivce.swift */,
 				FFBE6B0222E67A93000EF8B8 /* APIServiceFactory.swift */,
+				AAA7ECF222EB71990034C4C8 /* APIMockDataSourceProtocol.swift */,
+				AAA7ECF422EB731E0034C4C8 /* APIMockFileDataSource.swift */,
+				AAA7ECF622EB78740034C4C8 /* APIMockInputDataSource.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -401,6 +410,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAA7ECF722EB78740034C4C8 /* APIMockInputDataSource.swift in Sources */,
 				AA0B9D5122E449FA00D05FD8 /* SearchViewController.swift in Sources */,
 				AA0B9D7C22E456FC00D05FD8 /* FlickrRecent.swift in Sources */,
 				FFBE6B3122E904C1000EF8B8 /* DispatchQueueExt.swift in Sources */,
@@ -432,6 +442,8 @@
 				AA0B9D8222E4728000D05FD8 /* FlickrError.swift in Sources */,
 				FFBE6B0722E67FBD000EF8B8 /* APIMockServivce.swift in Sources */,
 				FFBE6B1022E69DD6000EF8B8 /* FileManagerExt.swift in Sources */,
+				AAA7ECF522EB731E0034C4C8 /* APIMockFileDataSource.swift in Sources */,
+				AAA7ECF322EB71990034C4C8 /* APIMockDataSourceProtocol.swift in Sources */,
 				AA0B9D8722E5907300D05FD8 /* BundleExt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

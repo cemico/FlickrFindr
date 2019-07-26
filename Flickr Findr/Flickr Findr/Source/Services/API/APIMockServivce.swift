@@ -9,80 +9,42 @@
 import Foundation
 
 class APIMockService: APIRequirements {
-    
-    private struct Constants {
-        
-        static let isAsync = false
-        static let asyncDelayInMS = 3000
-        static let isError = false
+
+    // properties
+    private let dataSource: APIMockDataSourceProtocol
+
+    // lifecycle
+    init(dataSource: APIMockDataSourceProtocol) {
+
+        self.dataSource = dataSource
     }
-    
-    // set of testing options to allow the
-    // injected mock network to explore all
-    // the possibilties, both success and failure
-    
-    // allow test to run in sync or async modes
-    var isAsync = Constants.isAsync
-    
-    // allow to simulate network latency
-    var asyncDelayInMS = Constants.asyncDelayInMS
-    
-    // allow error return
-    var isError = Constants.isError
-    
-    // allow full customization for results, successful and error
-    typealias APIMockResultsSource = (bundle: String?, custom: String?)
-    var results: APIMockResultsSource = (nil, nil)
-    
+
+    // protocol conformance
     func search(with tags: String,
                 exclusive: Bool,
                 page: Int,
                 completionHandler: @escaping (FlickrResults<FlickrSearch>) -> Void) {
 
-        // extract dynamic test case number / folder
-        let testCase = CommandLine.testNumberArgValue
 
-        // load mock file
-        let results =  FileManager.default.jsonFile(value: FlickrSearch.self,
-                                                    for: testCase,
-                                                    of: .search,
-                                                    isError: isError)
-
-        // chain to caller
-        completionHandler(results)
+        // data source to work it's specificity
+        dataSource.search(with: tags,
+                          exclusive: exclusive,
+                          page: page,
+                          completionHandler: completionHandler)
     }
 
     func photoInfo(id: String,
                    secret: String,
                    completionHandler: @escaping (FlickrResults<FlickrPhoto>) -> Void) {
         
-
-        // extract dynamic test case number / folder
-        let testCase = CommandLine.testNumberArgValue
-
-        // load mock file
-        let results =  FileManager.default.jsonFile(value: FlickrPhoto.self,
-                                                    for: testCase,
-                                                    of: .photoInfo,
-                                                    isError: isError)
-
-        // chain to caller
-        completionHandler(results)
+        // source specific
+        dataSource.photoInfo(id: id, secret: secret, completionHandler: completionHandler)
     }
     
     func recent(page: Int = 1,
                 completionHandler: @escaping (FlickrResults<FlickrRecent>) -> Void) {
 
-        // extract dynamic test case number / folder
-        let testCase = CommandLine.testNumberArgValue
-
-        // load mock file
-        let results =  FileManager.default.jsonFile(value: FlickrRecent.self,
-                                                    for: testCase,
-                                                    of: .recent,
-                                                    isError: isError)
-
-        // chain to caller
-        completionHandler(results)
+        // source specific
+        dataSource.recent(page: page, completionHandler: completionHandler)
     }
 }

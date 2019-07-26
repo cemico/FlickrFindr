@@ -11,7 +11,7 @@ import Foundation
 // setup custom errors for below
 enum ResultsError: Error {
 
-    case unknown, noData, badURL
+    case unknown, noData, badURL, badInput
 }
 
 // allow readable representation
@@ -29,6 +29,7 @@ extension ResultsError: CustomStringConvertible {
         case .unknown:  return "Unknown failure state before performing decode operation"
         case .noData:   return "No Data returned"
         case .badURL:   return "Unable to form URL"
+        case .badInput: return "Bad or missing input"
         }
     }
 

@@ -68,7 +68,9 @@ class APIServiceFactory {
         switch source {
             
         case .live:     return APILiveService()
-        case .mock:     return APIMockService()
+
+        // future add could be to support multiple mock sources from cmdline
+        case .mock:     return APIMockService(dataSource: APIMockFileDataSource())
         }
     }
     
