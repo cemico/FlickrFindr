@@ -8,7 +8,7 @@
 
 import Foundation
 
-class APIMockService: APIRequirements {
+struct APIMockService: APIRequirements {
 
     // properties
     private let dataSource: APIMockDataSourceProtocol

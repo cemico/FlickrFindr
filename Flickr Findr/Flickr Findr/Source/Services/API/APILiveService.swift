@@ -9,7 +9,7 @@
 import UIKit
 
 // add live implementation to be used as default
-class APILiveService: APIRequirements {
+struct APILiveService: APIRequirements {
 
     // search via tags
     func search(with tags: String = "",

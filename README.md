@@ -53,6 +53,7 @@ Highlights on what was done, as best I can remember ;)
 • the cell has a "loading" state image, then the actual image or an error image when completed.  the error images are hard to see, as I remove them from the list on error...
 • I extended UIImageView to do the async image download, outside of the assignment, would handle the caching better versus the localized files above the class extesion.
 • I went w/ the dark theme, as that typically accentuates images.  I also added a used partial alpha views in places, such as the light border around each cell and in some of the text overlays.
+• Note: added image ID on details page bottom for validation of unique image if you see dups ... as valid cases exist for dups, such as same or different user(s) posting same image
 
 ### Bugs
 • Only one known bug ... see if you can spot it ;)  
