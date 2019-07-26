@@ -23,15 +23,6 @@ class APILiveService: APIRequirements {
         let page = "\(page)"
         APIEndpoints.search(tags, isExclusive, page).getData(value: FlickrSearch.self) { results in
 
-//            switch results {
-//
-//            case .success(let model):
-//                print("success model \(type(of: model.self)):", model)
-//
-//            case .failure(let error):
-//                print(error)
-//            }
-            
             // user will likely need to take some UI action
             // on these results - be nice and return on main queue
             DispatchQueue.main.async {
@@ -48,15 +39,6 @@ class APILiveService: APIRequirements {
 
         APIEndpoints.photoInfo(id, secret).getData(value: FlickrPhoto.self) { results in
             
-//            switch results {
-//
-//            case .success(let model):
-//                print("success model \(type(of: model.self)):", model)
-//
-//            case .failure(let error):
-//                print(error)
-//            }
-            
             DispatchQueue.main.async {
                 
                 completionHandler(results)
@@ -70,15 +52,6 @@ class APILiveService: APIRequirements {
 
         let page = "\(page)"
         APIEndpoints.recent(page).getData(value: FlickrRecent.self) { results in
-            
-//            switch results {
-//
-//            case .success(let model):
-//                print("success model \(type(of: model.self)):", model)
-//
-//            case .failure(let error):
-//                print(error)
-//            }
             
             DispatchQueue.main.async {
                 

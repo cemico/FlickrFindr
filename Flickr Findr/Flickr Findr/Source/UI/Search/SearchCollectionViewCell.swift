@@ -12,7 +12,8 @@ class SearchCollectionViewCell: UICollectionViewCell {
     
     // outlets
     @IBOutlet weak var imageView: UIImageView!
-    
+    @IBOutlet weak var titleLabel: UILabel!
+
     // properties
     var resultsHandler: UIImageView.ImageLoadResultsType?
 
@@ -29,8 +30,17 @@ class SearchCollectionViewCell: UICollectionViewCell {
             }
             
             // load thumbnail - remove fail case
+            self.titleLabel.isHidden = true
             iv.load(from: imageModel) { [weak self] (imageId: String, success: Bool) in
 
+                if success {
+
+                    if let text = self?.model?.title, !text.isEmpty {
+
+                        self?.titleLabel.text = text
+                        self?.titleLabel.isHidden = false
+                    }
+                }
                 // let caller decide how to handle failure
                 self?.resultsHandler?(imageId, success)
             }
@@ -42,5 +52,6 @@ class SearchCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         
         imageView?.image = nil
+        titleLabel.text = nil
     }
 }

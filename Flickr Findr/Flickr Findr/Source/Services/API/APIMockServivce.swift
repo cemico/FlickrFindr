@@ -38,18 +38,51 @@ class APIMockService: APIRequirements {
                 exclusive: Bool,
                 page: Int,
                 completionHandler: @escaping (FlickrResults<FlickrSearch>) -> Void) {
-        
-        
+
+        // extract dynamic test case number / folder
+        let testCase = CommandLine.testNumberArgValue
+
+        // load mock file
+        let results =  FileManager.default.jsonFile(value: FlickrSearch.self,
+                                                    for: testCase,
+                                                    of: .search,
+                                                    isError: isError)
+
+        // chain to caller
+        completionHandler(results)
     }
-    
+
     func photoInfo(id: String,
                    secret: String,
                    completionHandler: @escaping (FlickrResults<FlickrPhoto>) -> Void) {
         
+
+        // extract dynamic test case number / folder
+        let testCase = CommandLine.testNumberArgValue
+
+        // load mock file
+        let results =  FileManager.default.jsonFile(value: FlickrPhoto.self,
+                                                    for: testCase,
+                                                    of: .photoInfo,
+                                                    isError: isError)
+
+        // chain to caller
+        completionHandler(results)
     }
     
     func recent(page: Int = 1,
                 completionHandler: @escaping (FlickrResults<FlickrRecent>) -> Void) {
-        
+
+        // extract dynamic test case number / folder
+        let testCase = CommandLine.testNumberArgValue
+
+        // load mock file
+        let results =  FileManager.default.jsonFile(value: FlickrRecent.self,
+                                                    for: testCase,
+                                                    of: .recent,
+                                                    isError: isError)
+
+        // chain to caller
+        completionHandler(results)
     }
 }

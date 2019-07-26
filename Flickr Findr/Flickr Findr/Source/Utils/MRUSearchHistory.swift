@@ -6,7 +6,7 @@
 //  Copyright © 2019 Cemico Inc. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct MRUSearchHistory {
     
@@ -18,7 +18,7 @@ struct MRUSearchHistory {
     private init() {
     
         // retrieve any previous history
-        history = UserDefaults.standard.mruSearchHistory
+        history = UIApplication.shared.localStorageService.mruSearchHistory
     }
     
     // note: mutating example

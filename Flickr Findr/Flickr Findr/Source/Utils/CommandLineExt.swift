@@ -28,12 +28,18 @@ extension CommandLine {
         // b) live: all other combinations / default
         //
         // note: if duplicate keys, first is used
-        case network
+        case network, testNumber
     }
     
     static var networkArgValue: String? {
         
         return CommandLine.getValue(for: .network)
+    }
+
+    static var testNumberArgValue: Int {
+
+        guard let strValue = CommandLine.getValue(for: .testNumber) else { return 0 }
+        return Int(strValue) ?? 0
     }
     
     static func getValue(for key: Keys) -> String? {

@@ -13,6 +13,8 @@ extension UserDefaults {
     private struct Constants {
         
         static let numThumbImagesPerRow = 3
+        static let numberItemsInAPIRequest = 25
+        static let exclusiveAndSearches = false
     }
     
     // note: avoid extra key by reusing unique var declaration
@@ -23,6 +25,32 @@ extension UserDefaults {
                 
                 // default
                 return Constants.numThumbImagesPerRow
+            }
+            return value
+        }
+        set { set(newValue, forKey: #function) }
+    }
+
+    var numberItemsInAPIRequest: Int {
+
+        get {
+            guard let value = object(forKey: #function) as? Int else {
+
+                // default
+                return Constants.numberItemsInAPIRequest
+            }
+            return value
+        }
+        set { set(newValue, forKey: #function) }
+    }
+
+    var exclusiveAndSearches: Bool {
+
+        get {
+            guard let value = object(forKey: #function) as? Bool else {
+
+                // default
+                return Constants.exclusiveAndSearches
             }
             return value
         }

@@ -21,6 +21,8 @@
 		AA0B9D8222E4728000D05FD8 /* FlickrError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0B9D8122E4728000D05FD8 /* FlickrError.swift */; };
 		AA0B9D8422E4D7BC00D05FD8 /* ResultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0B9D8322E4D7BC00D05FD8 /* ResultsWrapper.swift */; };
 		AA0B9D8722E5907300D05FD8 /* BundleExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0B9D8622E5907300D05FD8 /* BundleExt.swift */; };
+		AAA7ECED22EB50570034C4C8 /* LocalStorageProtocol.com.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA7ECEC22EB50570034C4C8 /* LocalStorageProtocol.com.swift */; };
+		AAA7ECF122EB50F20034C4C8 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA7ECF022EB50F20034C4C8 /* LocalStorage.swift */; };
 		FFBE6B0322E67A93000EF8B8 /* APIServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBE6B0222E67A93000EF8B8 /* APIServiceFactory.swift */; };
 		FFBE6B0522E67E9B000EF8B8 /* APIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBE6B0422E67E9B000EF8B8 /* APIProtocol.swift */; };
 		FFBE6B0722E67FBD000EF8B8 /* APIMockServivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBE6B0622E67FBD000EF8B8 /* APIMockServivce.swift */; };
@@ -75,6 +77,8 @@
 		AA0B9D8122E4728000D05FD8 /* FlickrError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrError.swift; sourceTree = "<group>"; };
 		AA0B9D8322E4D7BC00D05FD8 /* ResultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsWrapper.swift; sourceTree = "<group>"; };
 		AA0B9D8622E5907300D05FD8 /* BundleExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExt.swift; sourceTree = "<group>"; };
+		AAA7ECEC22EB50570034C4C8 /* LocalStorageProtocol.com.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageProtocol.com.swift; sourceTree = "<group>"; };
+		AAA7ECF022EB50F20034C4C8 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		FFBE6B0222E67A93000EF8B8 /* APIServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceFactory.swift; sourceTree = "<group>"; };
 		FFBE6B0422E67E9B000EF8B8 /* APIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIProtocol.swift; sourceTree = "<group>"; };
 		FFBE6B0622E67FBD000EF8B8 /* APIMockServivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIMockServivce.swift; sourceTree = "<group>"; };
@@ -170,7 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				AA0B9D4E22E449FA00D05FD8 /* AppDelegate.swift */,
-				AA0B9D7522E452E500D05FD8 /* API */,
+				AAA7ECEF22EB50700034C4C8 /* Services */,
 				FFBE6B2922E8AE69000EF8B8 /* UI */,
 				AA0B9D7822E4550C00D05FD8 /* Models */,
 				AA0B9D8522E4D83600D05FD8 /* Utils */,
@@ -238,6 +242,24 @@
 				FFBE6B1C22E7B71E000EF8B8 /* ViewControllerInstanciator.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		AAA7ECEE22EB50610034C4C8 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				AAA7ECEC22EB50570034C4C8 /* LocalStorageProtocol.com.swift */,
+				AAA7ECF022EB50F20034C4C8 /* LocalStorage.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		AAA7ECEF22EB50700034C4C8 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AA0B9D7522E452E500D05FD8 /* API */,
+				AAA7ECEE22EB50610034C4C8 /* Storage */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		FFBE6B2822E8AE53000EF8B8 /* Nibs */ = {
@@ -392,7 +414,9 @@
 				AA0B9D8022E46A9B00D05FD8 /* FlickrPhotos.swift in Sources */,
 				AA0B9D7722E4550500D05FD8 /* FlickrPhoto.swift in Sources */,
 				FFBE6B3722E940FC000EF8B8 /* UIViewExt.swift in Sources */,
+				AAA7ECF122EB50F20034C4C8 /* LocalStorage.swift in Sources */,
 				AA0B9D4F22E449FA00D05FD8 /* AppDelegate.swift in Sources */,
+				AAA7ECED22EB50570034C4C8 /* LocalStorageProtocol.com.swift in Sources */,
 				FFBE6B2B22E8F6DB000EF8B8 /* SearchCollectionHeaderView.swift in Sources */,
 				FFBE6B2F22E8FA7B000EF8B8 /* SearchCollectionViewCell.swift in Sources */,
 				FFBE6B3322E908E7000EF8B8 /* IntExt.swift in Sources */,
@@ -501,7 +525,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -556,7 +580,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

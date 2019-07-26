@@ -122,7 +122,7 @@ class SearchViewController: UIViewController {
         _ = search
         
         // calc the optimum cell size given the device size
-        let numberThumbsHorizontally = UserDefaults.standard.numThumbImagesPerRow
+        let numberThumbsHorizontally = UIApplication.shared.localStorageService.numThumbImagesPerRow
         var deviceWidth = UIScreen.main.bounds.width.intValue
         let insets = collectionViewFlowLayout.sectionInset
         deviceWidth -= (numberThumbsHorizontally - 1 + 2) * insets.left.intValue
@@ -202,7 +202,8 @@ extension SearchViewController {
         
         // load recent
         loadingView.blink(true)
-        UIApplication.shared.apiService.search(with: tags, exclusive: false, page: page) { [weak self] results in
+        let exclusive = UIApplication.shared.localStorageService.exclusiveAndSearches
+        UIApplication.shared.apiService.search(with: tags, exclusive: exclusive, page: page) { [weak self] results in
             
             switch results {
                 

@@ -16,23 +16,20 @@ enum FileManagerError: Error {
 
 extension FileManager {
     
-    private enum Constants: String {
+    enum Constants: String {
         
         case json, test, data, error
         
         var capFirst: String { return self.rawValue.capitalized }
     }
     
-    private enum TestFileTypes: String {
+    enum TestFileTypes: String {
         
         case photoInfo, search, recent
     }
     
-    // generic return type for the json-based loads below
-    typealias FlickrLoadTestResultsType<T> = (model: T?, error: FlickrError?)
-
     // by search
-    func loadSearchTestFile(for testCase: Int, isError: Bool) -> FlickrLoadTestResultsType<FlickrSearch> {
+    func loadSearchTestFile(for testCase: Int, isError: Bool) -> FlickrResults<FlickrSearch> {
         
         return jsonFile(value: FlickrSearch.self,
                         for: testCase,
@@ -41,7 +38,7 @@ extension FileManager {
     }
     
     // by photo info
-    func loadPhotoInfoTestFile(for testCase: Int, isError: Bool) -> FlickrLoadTestResultsType<FlickrPhoto> {
+    func loadPhotoInfoTestFile(for testCase: Int, isError: Bool) -> FlickrResults<FlickrPhoto> {
         
         return jsonFile(value: FlickrPhoto.self,
                         for: testCase,
@@ -50,7 +47,7 @@ extension FileManager {
     }
     
     // by recent
-    func loadRecentTestFile(for testCase: Int, isError: Bool) -> FlickrLoadTestResultsType<FlickrRecent> {
+    func loadRecentTestFile(for testCase: Int, isError: Bool) -> FlickrResults<FlickrRecent> {
         
         return jsonFile(value: FlickrRecent.self,
                         for: testCase,
@@ -62,17 +59,18 @@ extension FileManager {
 extension FileManager {
     
     // private helpers
-    private func jsonFile<T: Decodable>(value: T.Type,
+    func jsonFile<T: Decodable>(value: T.Type,
                                         for testCase: Int,
                                         of testType: TestFileTypes,
                                         isError: Bool,
-                                        in bundle: Bundle = Bundle.main) -> (T?, FlickrError?) {
+                                        in bundle: Bundle = Bundle.main) -> FlickrResults<T> {
 
         // resources must exist for given bundle
         guard let resourceURL = bundle.resourceURL else {
             
             let flickrError = FlickrError(error: FileManagerError.noResourceURL)
-            return (nil, flickrError)
+            let results = FlickrResults<T>.failure(from: flickrError)
+            return results
         }
         
         // file and folder (/.../Data/Testxx)
@@ -87,7 +85,8 @@ extension FileManager {
         guard !urlPath.path.isEmpty else {
             
             let flickrError = FlickrError(error: FileManagerError.badPath)
-            return (nil, flickrError)
+            let results = FlickrResults<T>.failure(from: flickrError)
+            return results
         }
         
         // update w/ filename
@@ -97,7 +96,8 @@ extension FileManager {
         guard let data = FileManager.default.contents(atPath: urlPath.path) else {
 
             let flickrError = FlickrError(error: FileManagerError.unableToRead)
-            return (nil, flickrError)
+            let results = FlickrResults<T>.failure(from: flickrError)
+            return results
         }
 
         do {
@@ -109,7 +109,8 @@ extension FileManager {
                 let model = try JSONDecoder().decode(FlickrError.self, from: data)
 
                 // success w/ valid error model
-                return (nil, model)
+                let results = FlickrResults<T>.failure(from: model)
+                return results
             }
             else {
                 
@@ -117,14 +118,16 @@ extension FileManager {
                 let model = try JSONDecoder().decode(T.self, from: data)
 
                 // success w/ valid data model
-                return (model, nil)
+                let results = FlickrResults<T>.success(model)
+                return results
             }
         }
         catch {
             
             print(error.localizedDescription)
             let flickrError = FlickrError(error: FileManagerError.unableToModel)
-            return (nil, flickrError)
+            let results = FlickrResults<T>.failure(from: flickrError)
+            return results
         }
     }
 }

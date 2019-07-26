@@ -18,6 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
         return APIServiceFactory().createNetwork(from: .arg)
     }()
+
+    lazy var localStorageService: LocalStorageProtocol = {
+
+        return LocalStorage()
+    }()
     
     lazy var thumbPhotoSize: FlickrPhotoVM.PhotoSize = {
        
@@ -57,6 +62,11 @@ extension UIApplication {
     var apiService: APIRequirements {
         
         return getDelegate().apiService
+    }
+
+    var localStorageService: LocalStorageProtocol {
+
+        return getDelegate().localStorageService
     }
     
     var thumbPhotoSize: Int {
