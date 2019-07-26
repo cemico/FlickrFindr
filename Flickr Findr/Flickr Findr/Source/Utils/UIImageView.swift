@@ -55,27 +55,35 @@ extension UIImageView {
         
         var image: String { return rawValue }
     }
-    
+
+    // String = imageId, Bool = success
+    typealias ImageLoadResultsType = ((String, Bool) -> Void)
+
     // exposed api
     func load(from model: FlickrPhoto,
               loadingImage: String = Constants.loading.image,
-              errorImage: String = Constants.downloadFailed.image,  //  Constants.unableToLoad.image,
-              isThumb: Bool = true) {
-        
+              errorImage: String = Constants.downloadFailed.image,
+              isThumb: Bool = true,
+              completionHandler: @escaping ImageLoadResultsType) {
+
         // convenience mapper to url load below
         let size = self.bounds.width.intValue
         let vm = FlickrPhotoVM(model: model)
         self.load(urlPath: vm.getImageURL(for: size),
+                  imageId: model.id,
                   loadingImage: loadingImage,
                   errorImage: errorImage,
-                  isThumb: isThumb)
+                  isThumb: isThumb,
+                  completionHandler: completionHandler)
     }
     
-    func load(urlPath: String,
-              loadingImage: String = Constants.loading.image,
-              errorImage: String = Constants.unableToLoad.image,
-              isThumb: Bool = true) {
-        
+    private func load(urlPath: String,
+                      imageId: String,
+                      loadingImage: String = Constants.loading.image,
+                      errorImage: String = Constants.unableToLoad.image,
+                      isThumb: Bool = true,
+                      completionHandler: ImageLoadResultsType?) {
+
         // example of defining closure, in this case to reduce a repeated task
         let updateOnMainQueue = { (image: UIImage?) in
             
@@ -120,10 +128,21 @@ extension UIImageView {
         updateOnMainQueue(UIImage(named: loadingImage))
         
         // load
-        load(url: imageURL, isThumb: isThumb, errorImage: errorImage)
+        load(url: imageURL,
+             imageId: imageId,
+             isThumb: isThumb,
+             errorImage: errorImage) { (imageId, success) in
+
+            // chain
+            completionHandler?(imageId, success)
+        }
     }
     
-    private func load(url: URL, isThumb: Bool, errorImage: String) {
+    private func load(url: URL,
+                      imageId: String,
+                      isThumb: Bool,
+                      errorImage: String,
+                      completionHandler: ImageLoadResultsType?) {
         
         // track current request so we know to only update to the latest request
         // ex) usual load request, then cell is reused, and a new
@@ -182,6 +201,7 @@ extension UIImageView {
                         
                         print("skipped - cell reuse with multiple requests")
                     }
+                    completionHandler?(imageId, true)
                 }
             }
             else {
@@ -191,6 +211,7 @@ extension UIImageView {
                     
                     self?.image = UIImage(named: errorImage)
                 }
+                completionHandler?(imageId, false)
             }
         }
     }

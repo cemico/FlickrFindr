@@ -23,13 +23,14 @@ class PhotoInfoViewController: UIViewController, ViewControllerInstanciator {
     
     // properties
     private let viewModel: FlickrPhotoVM
+    private let resultsHandler: UIImageView.ImageLoadResultsType?
     
     // lifecycle
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(viewModel: FlickrPhotoVM) {
+    init(viewModel: FlickrPhotoVM, resultsHandler: @escaping UIImageView.ImageLoadResultsType) {
         
         // injected values are ideal on a number of levels, most importantly,
         // they reduce external dependencies as well as allowing the items to
@@ -37,6 +38,7 @@ class PhotoInfoViewController: UIViewController, ViewControllerInstanciator {
         // (which is not possible from storyboard support, need to assign
         // values after creation)
         self.viewModel = viewModel
+        self.resultsHandler = resultsHandler
         super.init(nibName: PhotoInfoViewController.className, bundle: Bundle.main)
     }
 
@@ -44,8 +46,16 @@ class PhotoInfoViewController: UIViewController, ViewControllerInstanciator {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // fire up async photo load, non-thumbnail
-        imageView.load(from: viewModel.model, isThumb: false)
+        // fire up async photo load, non-thumbnail, if failed, most likely
+        // would have failed at the icon, which removes the item ... if it
+        // fails here, do default handling and show the error image.
+        imageView.load(from: viewModel.model, isThumb: false, completionHandler: { (imageId, success) in
+
+            if !success {
+
+                self.resultsHandler?(imageId, success)
+            }
+        })
 
         // some file titles are very long, added separate space
         // to show on those.  most titles can fit in screen title

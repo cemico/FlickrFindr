@@ -131,11 +131,6 @@ class SearchViewController: UIViewController {
         collectionViewFlowLayout.itemSize = CGSize(width: maxThumbWidth, height: maxThumbWidth)
         collectionViewFlowLayout.invalidateLayout()
         
-        // since we have custom collection view, which is setup
-        // during the first reload, let's get it in place right
-        // away so when real data comes back, there isn't a timing issue
-//        collectionView.reloadData()
-        
         // fire off recent community pics while user searches
         loadRecent(clear: true, page: 1)
     }
@@ -306,6 +301,24 @@ extension SearchViewController {
             .filter({ $0.value > 1 })
         return dictDupsIds
     }
+
+    private func removeBadData(imageId: String) {
+
+        DispatchQueue.main.mainInline {
+
+            if let index = self.data.firstIndex(where: { $0.id == imageId }) {
+
+                // remove data source item
+                self.data.remove(at: index)
+
+                // instead of brute force redraw all - remove specific and let
+                // collection view do it's animation to fill the gap
+                let indexPath = IndexPath(row: index, section: 0)
+                self.collectionView.deleteItems(at: [ indexPath ])
+                print("removed bad data at index", index)
+            }
+        }
+    }
     
     private func setHeader(state: SearchScopeStates, count: Int, total: Int) {
         
@@ -471,7 +484,17 @@ extension SearchViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollectionViewCell.className, for: indexPath)
         
         if let searchCell = cell as? SearchCollectionViewCell {
-        
+
+            // handle any errors
+            searchCell.resultsHandler = { [weak self] (imageId: String, success: Bool) in
+
+                // on failure, remove image from data source
+                if !success {
+
+                    self?.removeBadData(imageId: imageId)
+                }
+            }
+
             // supply cell with what it needs to display itself
             searchCell.model = data[indexPath.row]
         }
@@ -488,7 +511,13 @@ extension SearchViewController: UICollectionViewDelegate {
         // show details for selected photo
         let model = data[indexPath.row]
         let viewModel = FlickrPhotoVM(model: model)
-        let vc = PhotoInfoViewController(viewModel: viewModel)
+        let vc = PhotoInfoViewController(viewModel: viewModel) { (imageId: String, success: Bool) in
+
+            if !success {
+
+                print("Unable to load photo info for \(imageId), displaying failure image")
+            }
+        }
         navigationController?.pushViewController(vc, animated: true)
     }
     

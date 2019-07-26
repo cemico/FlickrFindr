@@ -14,6 +14,8 @@ class SearchCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     
     // properties
+    var resultsHandler: UIImageView.ImageLoadResultsType?
+
     var model: FlickrPhoto? {
         didSet {
             
@@ -26,8 +28,12 @@ class SearchCollectionViewCell: UICollectionViewCell {
                 return
             }
             
-            // load thumbnail
-            iv.load(from: imageModel)
+            // load thumbnail - remove fail case
+            iv.load(from: imageModel) { [weak self] (imageId: String, success: Bool) in
+
+                // let caller decide how to handle failure
+                self?.resultsHandler?(imageId, success)
+            }
         }
     }
     
