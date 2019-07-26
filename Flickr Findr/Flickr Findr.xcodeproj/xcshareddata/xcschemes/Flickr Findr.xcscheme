@@ -76,6 +76,10 @@
             argument = "network=mock"
             isEnabled = "NO">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "testNumber=1"
+            isEnabled = "NO">
+         </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
