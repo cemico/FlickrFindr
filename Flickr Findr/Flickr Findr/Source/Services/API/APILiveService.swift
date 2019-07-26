@@ -6,7 +6,7 @@
 //  Copyright © 2019 Cemico Inc. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 // add live implementation to be used as default
 class APILiveService: APIRequirements {
@@ -96,7 +96,6 @@ enum APIEndpoints {
         private enum Values: String {
 
             case format = "json"
-            case perPage = "25"
             case nojsoncallback = "1"
             
             enum Method: String {
@@ -114,12 +113,15 @@ enum APIEndpoints {
 
         var queryParams: [URLQueryItem] {
 
+            // local storage item
+            let perPage = UIApplication.shared.getDelegate().localStorageService.numberItemsInAPIRequest
+
             // common items
             let apiKey = Bundle.InfoPlistKeys.CompanyChildKeys.flickrApiKey.value
             var params: [URLQueryItem] = [
                 URLQueryItem(name: Keys.apiKey.rawValue, value: apiKey),
                 URLQueryItem(name: Keys.format.rawValue, value: Values.format.rawValue),
-                URLQueryItem(name: Keys.perPage.rawValue, value: Values.perPage.rawValue),
+                URLQueryItem(name: Keys.perPage.rawValue, value: "\(perPage)"),
                 URLQueryItem(name: Keys.nojsoncallback.rawValue, value: Values.nojsoncallback.rawValue)
             ]
 

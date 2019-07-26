@@ -24,30 +24,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return LocalStorage()
     }()
     
-    lazy var thumbPhotoSize: FlickrPhotoVM.PhotoSize = {
-       
-        // determine the thumb size by device size
-        let numberThumbsHorizontally = UserDefaults.standard.numThumbImagesPerRow
-        let deviceWidth = UIScreen.main.bounds.width.intValue
-        let maxThumbWidth = deviceWidth / numberThumbsHorizontally
-        return FlickrPhotoVM.PhotoSize.format(from: maxThumbWidth)
-    }()
-
-    private lazy var imagePhotoSize: FlickrPhotoVM.PhotoSize = {
-        
-        // determine the optimal image size by device size
-        let deviceWidth = UIScreen.main.bounds.width.intValue
-        return FlickrPhotoVM.PhotoSize.format(from: deviceWidth)
-    }()
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         // setup network layer, default is real / live network, but
         // allows for the possibility to setting up a test / mock network
         print("Network: \(type(of: apiService))")
         
-        print("Thumb Size: \(thumbPhotoSize), Image Size: \(imagePhotoSize)")
-
         return true
     }
 }
@@ -58,7 +40,10 @@ extension UIApplication {
         
         return UIApplication.shared.delegate as! AppDelegate
     }
-    
+
+    // these really need a better home, such as a service protocol w/ a live
+    // implementation of below, allowing yet another level of control and
+    // not requiring UIKit imports on files which really don't need it.
     var apiService: APIRequirements {
         
         return getDelegate().apiService
@@ -67,10 +52,5 @@ extension UIApplication {
     var localStorageService: LocalStorageProtocol {
 
         return getDelegate().localStorageService
-    }
-    
-    var thumbPhotoSize: Int {
-        
-        return getDelegate().thumbPhotoSize.format.size
     }
 }

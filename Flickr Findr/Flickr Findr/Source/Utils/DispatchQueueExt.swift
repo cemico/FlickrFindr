@@ -14,18 +14,23 @@ extension DispatchQueue {
         
         // execute inline / immediately / sync if already on main queue
         guard !Thread.current.isMainThread else {
+
             work()
             return
         }
         
         // not on main queue, provide both options
         if dispatchAsyncIfNotMain {
+
             DispatchQueue.main.async {
+                
                 work()
             }
         }
         else {
+
             DispatchQueue.main.sync {
+
                 work()
             }
         }

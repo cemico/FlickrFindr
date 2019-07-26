@@ -21,6 +21,7 @@ extension UserDefaults {
     var numThumbImagesPerRow: Int {
         
         get {
+            
             guard let value = object(forKey: #function) as? Int else {
                 
                 // default
@@ -28,12 +29,14 @@ extension UserDefaults {
             }
             return value
         }
+
         set { set(newValue, forKey: #function) }
     }
 
     var numberItemsInAPIRequest: Int {
 
         get {
+
             guard let value = object(forKey: #function) as? Int else {
 
                 // default
@@ -41,12 +44,14 @@ extension UserDefaults {
             }
             return value
         }
+
         set { set(newValue, forKey: #function) }
     }
 
     var exclusiveAndSearches: Bool {
 
         get {
+
             guard let value = object(forKey: #function) as? Bool else {
 
                 // default
@@ -54,6 +59,7 @@ extension UserDefaults {
             }
             return value
         }
+
         set { set(newValue, forKey: #function) }
     }
 

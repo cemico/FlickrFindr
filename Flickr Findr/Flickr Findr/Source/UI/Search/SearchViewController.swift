@@ -202,6 +202,8 @@ extension SearchViewController {
         
         // load recent
         loadingView.blink(true)
+
+        // extend support for "AND" searching over default "OR" searching
         let exclusive = UIApplication.shared.localStorageService.exclusiveAndSearches
         UIApplication.shared.apiService.search(with: tags, exclusive: exclusive, page: page) { [weak self] results in
             
@@ -255,7 +257,8 @@ extension SearchViewController {
                 //       (maybe raw bytes image compare could eliminate,
                 //        but that'd be an *expensive* operation)
                 let dictDupsIds = getDups()
-                
+
+                // data scrub
                 for (id, count) in dictDupsIds {
                     
                     // leave 1 / original there, remove rest
@@ -296,7 +299,7 @@ extension SearchViewController {
     }
     
     private func getDups() -> [String: Int] {
-        
+
         let dictDupsIds = self.data
             .reduce(into: [:], { ids, model in ids[model.id, default: 0] += 1 })
             .filter({ $0.value > 1 })

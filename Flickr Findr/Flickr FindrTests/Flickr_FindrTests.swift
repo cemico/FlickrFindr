@@ -12,22 +12,27 @@ import XCTest
 class Flickr_FindrTests: XCTestCase {
 
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        super.setUp()
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
     }
 
     func testExample() {
 
-        // 1 - test photo vm format calcs
-        
-        //                for size in FlickrPhotoVM.PhotoSize.allCases {
-        //
-        //                    print(size, "(\(size.format.letter)):", vm.getImageURL(for: size.format.size + 2))
-        //                }
-
+//        // 1 - test photo view model format calcs
+//        for size in FlickrPhotoVM.PhotoSize.allCases {
+//
+//            print(size, "(\(size.format.letter)):", vm.getImageURL(for: size.format.size + 2))
+//        }
+//
+//        // 2 - view model in practice - determine the thumb size by device size
+//        let numberThumbsHorizontally = UserDefaults.standard.numThumbImagesPerRow
+//        let deviceWidth = UIScreen.main.bounds.width.intValue
+//        let maxThumbWidth = deviceWidth / numberThumbsHorizontally
+//        let thumbPhotoSize = FlickrPhotoVM.PhotoSize.format(from: maxThumbWidth)
+//        print("Thumb Size: \(thumbPhotoSize)")
     }
 
     func testPerformanceExample() {

@@ -18,7 +18,7 @@ struct APIMockFileDataSource: APIMockDataSourceProtocol {
         static let isError = false
     }
 
-    // properties - protocol conformance, note var required on protocol variable
+    // properties - protocol conformance
 
     // allow test to run in sync or async modes
     var isAsync: Bool

@@ -23,8 +23,7 @@ protocol APIRequirements {
                    secret: String,
                    completionHandler: @escaping (FlickrResults<FlickrPhoto>) -> Void)
     
-    // toying w/ idea of showing this at first launch
-    // note: fully implemented
+    // give the user something to see on first launch - recent photo postings
     func recent(page: Int,
                 completionHandler: @escaping (FlickrResults<FlickrRecent>) -> Void)
 }

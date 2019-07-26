@@ -209,9 +209,9 @@
 			isa = PBXGroup;
 			children = (
 				FFBE6B0422E67E9B000EF8B8 /* APIProtocol.swift */,
+				FFBE6B0222E67A93000EF8B8 /* APIServiceFactory.swift */,
 				AA0B9D7322E452E000D05FD8 /* APILiveService.swift */,
 				FFBE6B0622E67FBD000EF8B8 /* APIMockServivce.swift */,
-				FFBE6B0222E67A93000EF8B8 /* APIServiceFactory.swift */,
 				AAA7ECF222EB71990034C4C8 /* APIMockDataSourceProtocol.swift */,
 				AAA7ECF422EB731E0034C4C8 /* APIMockFileDataSource.swift */,
 				AAA7ECF622EB78740034C4C8 /* APIMockInputDataSource.swift */,
@@ -256,8 +256,8 @@
 		AAA7ECEE22EB50610034C4C8 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				AAA7ECEC22EB50570034C4C8 /* LocalStorageProtocol.com.swift */,
 				AAA7ECF022EB50F20034C4C8 /* LocalStorage.swift */,
+				AAA7ECEC22EB50570034C4C8 /* LocalStorageProtocol.com.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
