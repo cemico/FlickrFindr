@@ -29,18 +29,18 @@ class SearchCollectionViewCell: UICollectionViewCell {
                 return
             }
             
-            // load thumbnail - remove fail case
+
+            // set title while loading
             self.titleLabel.isHidden = true
+            if let text = self.model?.title, !text.isEmpty {
+
+                self.titleLabel.text = text
+                self.titleLabel.isHidden = false
+            }
+
+            // load thumbnail - remove fail case
             iv.load(from: imageModel) { [weak self] (imageId: String, success: Bool) in
 
-                if success {
-
-                    if let text = self?.model?.title, !text.isEmpty {
-
-                        self?.titleLabel.text = text
-                        self?.titleLabel.isHidden = false
-                    }
-                }
                 // let caller decide how to handle failure
                 self?.resultsHandler?(imageId, success)
             }
