@@ -66,6 +66,9 @@ encapsulated for this.  The history is also saved in this LocalStorage area, and
 bar was expanded to allow a History display, but didn't get to writing up a table to display
 and track / push a selection through.  Some of the photos out there are pretty nice - thought
 it might also be nice to add a Share button ... 
+Two bigger hit items which would be nice are on the details page.  first, setting it up to support
+pinch and zoom on the image, and secondly, to support left/right swiping via a page control or 
+another single image collection. 
 
 
 ## The Ask
