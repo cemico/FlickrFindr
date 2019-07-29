@@ -53,5 +53,9 @@ class SearchCollectionViewCell: UICollectionViewCell {
         
         imageView?.image = nil
         titleLabel.text = nil
+
+        // if we implemented the data load as a custom image view class
+        // then we could hae overridden image's didSet and auto do this...
+        imageView?.imagePrepareForReuse()
     }
 }

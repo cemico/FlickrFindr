@@ -76,6 +76,12 @@ extension UIImageView {
                   isThumb: isThumb,
                   completionHandler: completionHandler)
     }
+
+    func imagePrepareForReuse() {
+
+        // done with cell - reset cache for this item
+        setCacheItem(value: nil)
+    }
     
     private func load(urlPath: String,
                       imageId: String,
@@ -153,13 +159,8 @@ extension UIImageView {
         //     request comes in after the second request.
         
         // use object memory address as key
-        NSLock().synchronized {
+        setCacheItem(value: url.absoluteString)
 
-            let requestKey = "\(Unmanaged.passUnretained(self).toOpaque())"
-            requestCache[requestKey] = url.absoluteString
-            print("request queue size:", requestCache.count)
-        }
-        
         // note: with more time, would have likely rolled the image requests
         //       into a DispatchGroup to have better control over when
         //       batches of requests are done, priority, and ability to
@@ -214,5 +215,17 @@ extension UIImageView {
                 completionHandler?(imageId, false)
             }
         }
+    }
+
+    private func setCacheItem(value: String?) {
+
+        // use object memory address as key
+        NSLock().synchronized {
+
+            let requestKey = "\(Unmanaged.passUnretained(self).toOpaque())"
+            requestCache[requestKey] = value
+            print("request queue size:", requestCache.count)
+        }
+
     }
 }
